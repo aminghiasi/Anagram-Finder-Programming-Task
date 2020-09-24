@@ -41,7 +41,7 @@ O(K) where K is the length of the word entered by the user.
 O(NK), the total information content stored in the python dictionary
 
 ## Run Example
- MacBookPro: ~$ python3 anagram_finder.py dictionary.txt
+MacBookPro: ~$ python3 anagram_finder.py dictionary.txt
 
 *Welcome to the Anagram Finder*<br />
 *-----------------------------*<br />
@@ -49,13 +49,17 @@ O(NK), the total information content stored in the python dictionary
 
 *AnagramFinder> stop*<br />
 *anagrams found for stop in 0.04 ms*<br />
-*post,spot,tops*
+*post,spot,tops,stop*
 
 *AnagramFinder> accept*<br />
 *No anagrams found for accept in 0.03 ms*
 
 *AnagramFinder> exit*<br />
 *MacBookPro: ~$*
+
+## Run Unit Tests
+In order to run the unit tests, do:<br />
+```MacBookPro: ~$ python3 unit_tests.py -b```
 
 # Platform
 This code is written with python 3.7
