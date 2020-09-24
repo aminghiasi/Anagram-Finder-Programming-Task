@@ -26,10 +26,10 @@ class AnagramFinder:
     @timeit
     def read_dictionary(self, file_name: str):
         """ Given a file name, load it to memory as a dictionary. Each line in the file is considered a word.
-        Also, words are case-sensitive and all non alphabetic letters are ignored. """
+        Also, words are case-insensitive and all non alphabetic letters are ignored. """
 
         try:
-            with open(file_name) as infile:
+            with open(file_name, 'r') as infile:
                 for word in infile:
                     if word == '' or word == '\n':
                         continue  # if there is an empty line, ignore it.
@@ -62,7 +62,7 @@ class AnagramFinder:
         for char in stripped_word:
             count[ord(char) - ord('a')] += 1
         count_tuple = tuple(count)
-        return [o for o in self.dict.get(count_tuple, []) if o != word]
+        return self.dict.get(count_tuple, [])
 
 
 def anagram_finder_main():
@@ -76,7 +76,10 @@ def anagram_finder_main():
     anagram_finder = AnagramFinder()
 
     _, initialization_time = anagram_finder.read_dictionary(sys.argv[1])
-    print(f'Initialized in {initialization_time:.2f}ms')
+
+    print('\nWelcome to the Anagram Finder')
+    print('-----------------------------')
+    print(f'Initialized in {initialization_time:.2f} ms\n')
 
     while 1 == 1:
         word = input("AnagramFinder> ")
@@ -89,10 +92,11 @@ def anagram_finder_main():
             continue
 
         if not anagrams:
-            print(f'No anagrams found for {word} in {lookup_time:.2f}ms')
+            print(f'No anagrams found for {word} in {lookup_time:.2f} ms')
         else:
-            print(f'{len(anagrams)} anagrams found for {word} in {lookup_time:.2f}ms')
+            print(f'{len(anagrams)} anagrams found for {word} in {lookup_time:.2f} ms')
             print(','.join(anagrams))
+        print()
 
 
 if __name__ == '__main__':
