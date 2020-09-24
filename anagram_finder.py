@@ -24,9 +24,10 @@ class AnagramFinder:
         self.dict = defaultdict(list)
 
     @timeit
-    def read_dictionary(self, file_name: str):
-        """ Given a file name, load it to memory as a dictionary. Each line in the file is considered a word.
-        Also, words are case-insensitive and all non alphabetic letters are ignored. """
+    def read_dictionary(self, file_name: str) -> None:
+        """ Given a dictionary file, load it to memory as a python dictionary for anagram lookup.
+        Each line in the file is considered a word. Also, words are case-insensitive and all
+        non alphabetic letters are ignored. """
 
         try:
             with open(file_name, 'r') as infile:
@@ -34,11 +35,12 @@ class AnagramFinder:
                     if word == '' or word == '\n':
                         continue  # if there is an empty line, ignore it.
 
-                    count = [0] * 26
-                    stripped_word = re.sub('[^a-z]', '', word.lower())
+                    stripped_word = re.sub('[^a-z]', '', word.lower())  # remove non-alphabet characters
                     if not stripped_word:
                         sys.exit(f'Fatal Error: word {word} in dictionary has no alphabet letters. Quitting...')
 
+                    # translate the word into the frequency tuple
+                    count = [0] * 26
                     for char in stripped_word:
                         count[ord(char) - ord('a')] += 1
                     self.dict[tuple(count)].append(word.rstrip('\n'))
@@ -47,27 +49,30 @@ class AnagramFinder:
             sys.exit(f'Fatal Error: Unable to open file {file_name}. Quitting...')
 
     @timeit
-    def find_anagrams(self, word: str):
-        """ Given a word, returns a list of it anagrams in the dictionary that has been already loaded to memory.
+    def find_anagrams(self, word: str) -> list:
+        """ Given a word, returns a list of its anagrams in the dictionary that has been already loaded to memory.
         None is returned if there is a problem in the input. """
 
         if not word:
             return None  # Return None if the input is empty
 
-        stripped_word = re.sub('[^a-z]', '', word.lower())  # Remove anything that is not in alphabet
+        stripped_word = re.sub('[^a-z]', '', word.lower())  # remove non-alphabet characters
+
         if not stripped_word:
             print(f'{word} has no letter.')
             return None
+
+        # translate the word into the frequency tuple
         count = [0] * 26
         for char in stripped_word:
             count[ord(char) - ord('a')] += 1
-        count_tuple = tuple(count)
-        return self.dict.get(count_tuple, [])
+
+        return self.dict.get(tuple(count), [])
 
 
-def anagram_finder_main():
+def anagram_finder_main() -> None:
     """ The main function in anagram finder code. This function gets words as input in a terminal and finds the anagrams
-     for each word in a previously provided dictionary. To quit, input 'exit'. """
+    for each word in a previously provided dictionary. To quit, input 'exit'. """
 
     if len(sys.argv) != 2:
         sys.exit(f'Fatal Error: Expected only one argument. Found {len(sys.argv)-1}. Please enter the name'
