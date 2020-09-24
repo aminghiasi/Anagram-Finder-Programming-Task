@@ -32,7 +32,7 @@ After filling the python dictionary, the program prompts the user to enter words
 ## Complexity Analysis
 ### Time Complexity:
 #### Initialization
-O(NK), where N is the number of words in the dictionary file and K is the average length of the words in the dictionary file.
+O(NK), where N is the number of words and K is the average length of the words in the dictionary file.
 
 #### Lookup
 O(K) where K is the length of the word entered by the user.
@@ -59,6 +59,7 @@ MacBookPro: ~$ python3 anagram_finder.py dictionary.txt
 
 ## Run Unit Tests
 In order to run the unit tests, do:<br />
+
 ```MacBookPro: ~$ python3 unit_tests.py -b```
 
 # Platform
