@@ -27,7 +27,7 @@ Where each number shows the frequency of the following letters:<br />
 
 The tuples are calculated for each word in the dictionary file and then stored in a python dictionary as key = tuple, value = all the words in the dictionary file that translate to this tuple.
 
-After filling the python dictionary, the program prompts the user to enter words. For each word entered, the program calculates the tuple and tries to find it in the python dictionary. If the tuple exists in the python dictionary, it prints all the values (words with the same tuple) except the word prompted by the user. Otherwise, it prints a message that the word has no anagram in the dictionary.
+After filling the python dictionary, the program prompts the user to enter words. For each word entered, the program calculates the tuple and tries to find it in the python dictionary. If the tuple exists in the python dictionary, it prints all the values (words with the same tuple). Otherwise, it prints a message that the word has no anagram in the dictionary.
 
 ## Complexity Analysis
 ### Time Complexity:
