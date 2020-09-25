@@ -48,7 +48,7 @@ MacBookPro: ~$ python3 anagram_finder.py dictionary.txt
 *Initialized in 904.16 ms*
 
 *AnagramFinder> stop*<br />
-*anagrams found for stop in 0.04 ms*<br />
+*4 anagrams found for stop in 0.04 ms*<br />
 *post,spot,tops,stop*
 
 *AnagramFinder> accept*<br />
