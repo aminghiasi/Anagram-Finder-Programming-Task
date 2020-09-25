@@ -5,13 +5,13 @@ import time
 from functools import wraps
 
 
-def timeit(my_func):
+def timeit(func: callable) -> tuple:
     """ A simple decorator that times the duration of a function's execution. """
 
-    @wraps(my_func)
+    @wraps(func)
     def timed(*args, **kw):
         start_time = time.time()
-        output = my_func(*args, **kw)
+        output = func(*args, **kw)
         finish_time = time.time()
 
         return output, (finish_time - start_time) * 1000
@@ -20,6 +20,8 @@ def timeit(my_func):
 
 
 class AnagramFinder:
+    """This class contains the data structure and methods to find the anagrams of a given word in a dictionary file."""
+
     def __init__(self):
         self.dict = defaultdict(list)
 
@@ -84,7 +86,7 @@ def anagram_finder_main() -> None:
 
     print('\nWelcome to the Anagram Finder')
     print('-----------------------------')
-    print(f'Initialized in {initialization_time:.2f} ms\n')
+    print(f'Initialized in {initialization_time:.3f} ms\n')
 
     while 1 == 1:
         word = input("AnagramFinder> ")
@@ -97,9 +99,9 @@ def anagram_finder_main() -> None:
             continue
 
         if not anagrams:
-            print(f'No anagrams found for {word} in {lookup_time:.2f} ms')
+            print(f'No anagrams found for {word} in {lookup_time:.3f} ms')
         else:
-            print(f'{len(anagrams)} anagrams found for {word} in {lookup_time:.2f} ms')
+            print(f'{len(anagrams)} anagrams found for {word} in {lookup_time:.3f} ms')
             print(','.join(anagrams))
         print()
 
