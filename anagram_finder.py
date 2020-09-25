@@ -25,6 +25,17 @@ class AnagramFinder:
     def __init__(self):
         self.dict = defaultdict(list)
 
+    @staticmethod
+    def calculate_frequency_tuple(word: str) -> tuple:
+        """ For a given word, this method calculates the frequency tuple. A frequency tuple is a tuple with 26
+        integers showing the frequency of each english letter from 'a' to 'z'"""
+
+        count = [0] * 26
+        for char in word:
+            count[ord(char) - ord('a')] += 1
+
+        return tuple(count)
+
     @timeit
     def read_dictionary(self, file_name: str) -> None:
         """ Given a dictionary file, load it to memory as a python dictionary for anagram lookup.
@@ -37,15 +48,13 @@ class AnagramFinder:
                     if word == '' or word == '\n':
                         continue  # if there is an empty line, ignore it.
 
-                    stripped_word = re.sub('[^a-z]', '', word.lower())  # remove non-alphabet characters
+                    # remove non-alphabet characters and convert all letters to lower case
+                    stripped_word = re.sub('[^a-z]', '', word.lower())
                     if not stripped_word:
                         sys.exit(f'Fatal Error: word {word} in dictionary has no alphabet letters. Quitting...')
 
-                    # translate the word into the frequency tuple
-                    count = [0] * 26
-                    for char in stripped_word:
-                        count[ord(char) - ord('a')] += 1
-                    self.dict[tuple(count)].append(word.rstrip('\n'))
+                    # translate the stripped word into a frequency tuple and store it in the dictionary
+                    self.dict[AnagramFinder.calculate_frequency_tuple(stripped_word)].append(word.rstrip('\n'))
 
         except IOError:
             sys.exit(f'Fatal Error: Unable to open file {file_name}. Quitting...')
@@ -58,18 +67,15 @@ class AnagramFinder:
         if not word:
             return None  # Return None if the input is empty
 
-        stripped_word = re.sub('[^a-z]', '', word.lower())  # remove non-alphabet characters
+        # remove non-alphabet characters and convert all letters to lower case
+        stripped_word = re.sub('[^a-z]', '', word.lower())
 
         if not stripped_word:
             print(f'{word} has no letter.')
             return None
 
-        # translate the word into the frequency tuple
-        count = [0] * 26
-        for char in stripped_word:
-            count[ord(char) - ord('a')] += 1
-
-        return self.dict.get(tuple(count), [])
+        # translate the stripped word into the frequency tuple and try to find it in the dictionary
+        return self.dict.get(AnagramFinder.calculate_frequency_tuple(stripped_word), [])
 
 
 def anagram_finder_main() -> None:
